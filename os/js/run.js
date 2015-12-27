@@ -6,6 +6,16 @@ function ready(){
 		inputForm=document.getElementById("input-form");
 	var inputList=inputForm.getElementsByTagName("input");
 	var reg=/p-(name|super|rtime)/;
+
+	var algorithmTxt=[
+		"先来先服务调度算法","短进程优先调度算法",
+		"优先权调度算法","高响应比优先调度算法",
+		"时间片轮转法","多级反馈队列调度算法"];
+
+	sureBtn.onclick=function(){
+		console.log(algorithmTxt[Number(selectForm.algorithm.value)-1]);
+	}
+
 	inputBtn.onclick=function(){
 		var result;
 		for(var i=0,len=inputList.length;i<len;i++){
@@ -87,9 +97,6 @@ function ready(){
 	}
 }
 
-var algorithm=[
-"先来先服务调度算法","短进程优先调度算法",
-"优先权调度算法","高响应比优先调度算法",
-"时间片轮转法","多级反馈队列调度算法"];
+
 
 window.onload=ready;
