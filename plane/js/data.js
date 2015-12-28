@@ -1,0 +1,60 @@
+myplane={
+	x:160,
+	y:500,
+	health:1,
+	image:'image/myplane.gif',
+	boomImage:'image/myplaneboom.gif',
+	speed:0,
+	type:'myplane',
+	width:66,
+	height:80,
+	dieTimes:0,
+	totalTime:1024,
+	state:'active',
+	suspend:false
+}
+enemyS={
+	y:-24,
+	health:1,
+	image:'image/enemy_s.png',
+	boomImage:'image/boom_s.gif',
+	speed:5,
+	type:'enemy_s',
+	width:34,
+	height:24,
+	dieTimes:0,
+	totalTime:180,
+	score:1000,
+	state:'active',
+	outside:false
+}
+enemyM={
+	y:-60,
+	health:6,
+	image:'image/enemy_m.png',
+	boomImage:'image/boom_m.gif',
+	speed:3,
+	type:'enemy_m',
+	width:46,
+	height:60,
+	dieTimes:0,
+	totalTime:360,
+	score:5000,
+	state:'active',
+	outside:false
+}
+enemyL={
+	y:-164,
+	health:12,
+	image:'image/enemy_l.png',
+	boomImage:'image/boom_l.gif',
+	speed:1,
+	type:'enemy_l',
+	width:110,
+	height:164,
+	dieTimes:0,
+	totalTime:540,
+	score:30000,
+	state:'active',
+	outside:false
+}

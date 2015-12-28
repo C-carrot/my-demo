@@ -1,0 +1,115 @@
+*{
+    margin:0px;
+    padding:0px;
+    border:none;
+    font-family:"MicroSoft YaHei";
+    font-size:20px;
+}
+#content{
+    margin:0px auto;
+    width:320px;
+    height:568px;
+}
+#start-area{
+    display:block;
+    width:320px;
+    height:568px;
+    background-image:url('../image/main.png');
+    overflow:hidden;
+}
+#start-btn{
+    display:block;
+    width:150px;
+    height:40px;
+    line-height:30px;
+    margin:300px auto;
+    text-align:center;
+    font-size:20px;
+    border-radius:30px;
+    background-color:#c4c9ca;
+    border:1px solid black;
+    cursor:pointer;
+}
+#main-area{
+    width:320px;
+    height:568px;
+    position:relative;
+    background-image:url('../image/background.png');
+    background-repeat:repeat;
+    display:none;
+    overflow:hidden;
+}
+#cover-area{
+    width:320px;
+    height:568px;
+    display:none;
+    position:absolute;
+    top:0px;
+    left:0px;
+    z-index:19;    
+}
+#score-area{
+    position:absolute;
+    top:10px;
+    left:10px;
+    display:block;
+}
+#score-text{
+    margin-left:10px;
+}
+#suspend-area{
+    width:150px;
+    display:none;
+    position:absolute;
+    left:85px;
+    top:200px;
+    z-index:30;
+
+}
+#continue-btn,#restart-btn{  
+    margin-bottom:10px;
+    display:block;
+    width:150px;
+    height:40px;
+    line-height:30px; 
+    text-align:center;
+    font-size:20px;
+    border-radius:30px;
+    background-color:#c4c9ca;
+    border:1px solid black;
+    cursor:pointer;
+}
+#end-area{
+    position:absolute;
+    top:200px;
+    left:60px;
+    z-index:30;
+    width:200px;
+    border:1px solid gray;
+    border-radius:5px;
+    text-align:center;
+    background-color:#d7ddde;
+    display:none;
+}
+.plane-text{
+    width:200px;
+    height:40px;
+    line-height:40px;
+    border-bottom:1px solid gray;
+}
+#planes-core{
+    width:200px;
+    height:80px;
+    line-height:80px;
+    border-bottom:1px solid gray;
+}
+#again-btn{
+    width:120px;
+    height:30px;
+    display:block;
+    margin:10px auto;
+    border-radius:30px;
+    background-color:#c4c9ca;
+    border:1px solid black;
+    cursor:pointer;
+}

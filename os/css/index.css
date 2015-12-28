@@ -52,6 +52,7 @@ html,body{
 }
 .select-bar .item{
 	margin-top:10px;
+	cursor:pointer;
 }
 .select-bar button,.input-bar button{
 	display: block;

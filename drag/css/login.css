@@ -1,0 +1,115 @@
+*{
+	margin:0px;
+	padding:0px;
+	border:none;
+	list-style:none;
+}
+#loginBox{
+	width:400px;
+	height:300px;
+	position:absolute;
+	top:20px;
+	left:20px;
+	background-color:gray;	
+	border-radius:7px;
+}
+#loginTitle{
+	width:400px;
+	height:60px;
+	margin-top:40px;
+	
+}
+#loginTitle:hover{
+	cursor:move;
+}
+.loginTitle_icon{
+	background:url('../images/login.png') no-repeat;
+	width:60px;
+	height:60px;
+	margin-left:90px;
+	float:left;
+}
+.loginTitle_txt{
+	float:left;
+	height:60px;
+	line-height:60px;
+	font-size:30px;
+	margin-left:20px;	
+}
+.loginArea{
+	width:400px;
+	float:left;
+	margin-top:20px;
+}
+.loginArea input{
+	display:block;
+	width:350px;
+	height:30px;
+	border:1px solid gray;
+	margin:20px auto;
+	border-radius:7px;
+}
+.loginArea button{
+	width:80px;
+	height:30px;
+	margin-left:90px;
+	float:left;
+	border-radius:7px;
+}
+#listStatue{
+	float:left;
+	width:100px;
+	min-height:30px;
+	margin-left:50px;
+}
+#loginStatue{
+	float:left;
+	width:100px;
+	height:30px;
+	display:block;
+}
+#listStatue ul{
+	display:none;	
+	float:left;
+	width:120px;
+	border-radius:7px;
+}
+#listStatue ul li{
+	float:left;
+	display:block;
+	width:120px;
+	height:30px;
+	background-color:white;
+}
+.loginStatue_icon{
+	background:url('../images/loginStatue_icon.png') no-repeat;
+	width:14px;
+	height:14px;
+	margin:8px;
+	float:left;
+}
+.loginStatue_txt{
+	height:30px;
+	line-height:30px;
+	font-size:20px;
+	float:left;
+	text-align:center;
+}
+.online{
+	background-position:0px 0px;
+}
+.away{
+	background-position:-18px 0px;
+}
+.callme{
+	background-position:-72px 0px;
+}
+.hidden{
+	background-position:-54px 0px;
+}
+.slient{
+	background-position:-108px 0px;
+}
+.busy{
+ background-position:-36px 0px;
+}
