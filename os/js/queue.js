@@ -26,11 +26,21 @@
 		return item;
 	}
 
+	/*
+		@params *Object: args1,args2,args3 ...
+		@args1: {
+			name: String,
+			pcb: Object,
+			callback:Function
+		}
+	*/ 
 	queue.prototype.enqueue=function(){
 		if(arguments.length==0){
 			return ;
 		}
-		this.queueList=this.queueList.contact(arguments);
+		arguments.length==1 ?
+			this.queueList.push(arguments[0]):
+			this.queueList=this.queueList.contact.apply(null,arguments);
 		this.length+=arguments.length;
 	}
 	queue.prototype.remove=function(){

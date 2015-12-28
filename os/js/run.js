@@ -6,13 +6,15 @@ function ready(){
 		inputForm=document.getElementById("input-form");
 	var inputList=inputForm.getElementsByTagName("input");
 	var reg=/p-(name|super|rtime)/;
-
+	var index=0;
 	
 
 	sureBtn.onclick=function(){
-		console.log(algorithmTxt[Number(selectForm.algorithm.value)-1]);
+		algorithmType=Number(selectForm.algorithm.value);
 	}
 
+	var content=document.getElementsByClassName("content")[0];
+	var infoContent=document.getElementById("info-content");
 	inputBtn.onclick=function(){
 		var result;
 		var val=[];
@@ -27,6 +29,8 @@ function ready(){
 		}
 		pcb=createPCB.apply(null,val);
 		main(pcb,pcb.state);
+		showProcessAnimate(content,pcb.name,index++);
+		showProcessInfo(infoContent,pcb.name,pcb.super,pcb.rtime);
 	}
 
 	

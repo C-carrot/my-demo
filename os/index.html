@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>进程调度算法演示</title>
 	<link rel="stylesheet" href="css/index.css">
 </head>
 <body>
@@ -15,28 +15,28 @@
 				<h2 class="title">调度算法选择</h2>
 				<form id="select-form">
 					<div class="item">
-						<input type="radio" id="algorithm_1" checked name="algorithm" value="1">
-						<label for="algorithm_1">先来先服务调度算法</label>
+						<input type="radio" id="algorithm_0" checked name="algorithm" value="0">
+						<label for="algorithm_0">先来先服务调度算法</label>
+					</div>
+					<div class="item">
+						<input type="radio" id="algorithm_1" name="algorithm" value="1">
+						<label for="algorithm_1">短进程优先调度算法</label>
 					</div>
 					<div class="item">
 						<input type="radio" id="algorithm_2" name="algorithm" value="2">
-						<label for="algorithm_2">短进程优先调度算法</label>
+						<label for="algorithm_2">优先权调度算法</label>
 					</div>
 					<div class="item">
 						<input type="radio" id="algorithm_3" name="algorithm" value="3">
-						<label for="algorithm_3">优先权调度算法</label>
+						<label for="algorithm_3">高响应比优先调度算法</label>
 					</div>
 					<div class="item">
 						<input type="radio" id="algorithm_4" name="algorithm" value="4">
-						<label for="algorithm_4">高响应比优先调度算法</label>
+						<label for="algorithm_4">时间片轮转法</label>
 					</div>
 					<div class="item">
 						<input type="radio" id="algorithm_5" name="algorithm" value="5">
-						<label for="algorithm_5">时间片轮转法</label>
-					</div>
-					<div class="item">
-						<input type="radio" id="algorithm_6" name="algorithm" value="6">
-						<label for="algorithm_6">多级反馈队列调度算法</label>
+						<label for="algorithm_5">多级反馈队列调度算法</label>
 					</div>
 					<button id="sure-btn" type="button">确定</button>
 					
@@ -63,28 +63,27 @@
 					<button id="input-btn" type="button">确定</button>
 				</form>
 			</div>
+			<div class="info-bar">
+				<h2 class="title">进程信息</h2>
+				
+				<table class="list">
+					<thead>
+						<tr>
+							<th class="i-name">名称</th>
+							<th class="i-super">优先级</th>
+							<th class="i-rtime">时间</th>
+						</tr>
+					</thead>
+					<tbody id="info-content">
+						
+					</tbody>
+				</table>
+			</div>
 		</div>
 		<div id="show-bar">
-			<h2>优先权调度算法演示</h2>
+			<h2>先来先服务调度算法演示</h2>
 			<div class="content">
-				<div class="row">
-					<span class="p-title">进程1</span>
-					<div class="line">
-						<div class="cover red"></div>
-					</div>
-				</div>
-				<div class="row">
-					<span class="p-title">进程2</span>
-					<div class="line">
-						<div class="cover green"></div>
-					</div>
-				</div>
-				<div class="row">
-					<span class="p-title">进程3</span>
-					<div class="line">
-						<div class="cover orange"></div>
-					</div>
-				</div>
+				
 			</div>
 		</div>
 	</div>

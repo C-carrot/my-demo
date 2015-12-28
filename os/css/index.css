@@ -3,11 +3,12 @@
 	padding:0px;
 	border:none;
 	font-family:"Microsoft YaHei";
+	list-style:none;
 }
 html,body{
 	height:100%;
 	background-color: rgb(0, 121, 191);
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 .header{
 	height:40px;
@@ -25,12 +26,12 @@ html,body{
 }
 #show-bar{
 	height:100%;
-	margin-left:320px;
+	margin-left:350px;
 	
 }
 .slider-bar{
-	width:320px;
-	height:100%;
+	width:350px;
+	min-height:100%;
 	background-color: #edeff0;
 	float:left;
 }
@@ -52,7 +53,7 @@ html,body{
 }
 .select-bar .item{
 	margin-top:10px;
-	cursor:pointer;
+	
 }
 .select-bar button,.input-bar button{
 	display: block;
@@ -70,6 +71,10 @@ html,body{
 .select-bar label{
 	font-size:15px;
 	color:#4A4A4A;
+	cursor:pointer;
+}
+.select-bar input{
+	cursor:pointer;
 }
 .input-bar form{
 	margin-top:10px;
@@ -158,4 +163,45 @@ html,body{
 }
 .pink{
     background-color: #c377e0;	
+}
+
+
+.list{
+	display: block;
+	margin-left:18px;
+	margin-right:18px;
+	margin-top:5px;
+	margin-bottom:18px;
+}
+.list thead,.list tbody,.list tr{
+	display:block;
+	width:100%;
+}
+.list thead th{
+	color:#404040;
+	font-size:15px;
+}
+.list tbody td{
+	color:#949494;
+	font-size:14px;
+}
+.list thead tr,.list tbody tr{
+	font-size:0px;
+	height:30px;
+	line-height: 30px;
+}
+.i-name,.i-super,.i-rtime{
+	box-sizing:border-box;
+	display: inline-block;
+	
+	text-align: left;
+}
+.i-name{
+	width:50%;
+}
+.i-super{
+	width:25%;
+}
+.i-rtime{
+	width:25%;
 }
