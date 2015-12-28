@@ -6,23 +6,19 @@
 
 ;(function(w){
 	var queue=function(){
-		var queueList=[],
-			name=arguments[0] || "rqueue",
-			length=0;
+		this.queueList=[];
+		this.length=0;
+		this.name=arguments[0] || "rqueue";
 	}
-	queue.prototype.dequeue=function(name){
+	queue.prototype.dequeue=function(bool){
 		var item,i,len;
 		if(arguments.length==0){
 			item=this.queueList.shift();;			
-		}else{
-			for(i=0,len=this.queueList.length;i<len;i++){
-				if(name===this.queueList[i].name){
-					item=this.queueList[i].splice(i,1)[0];
-				}
-			}
 		}
-		item.callback();
-		this.queueList.length--;
+		if(bool){
+			item.callback();
+		}
+		this.length--;
 		return item;
 	}
 
