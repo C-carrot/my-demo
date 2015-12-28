@@ -3,9 +3,9 @@ var algorithmType=0;
 
 var colors=["red","green","orange","pink","yellow"];
 
+var readyQueue=window.readyQueue=window.queue("ready"),
+	runQueue=window.runQueue=window.queue("run");
 function pushQueue(pcb,state){
-	var readyQueue=window.readyQueue=window.queue("ready"),
-		runQueue=window.runQueue=window.queue("run");
 	if(!pcb){
 		return ;
 	}
@@ -81,10 +81,7 @@ function createPCB(name,sup,rtime,state){
 		this.callback=callback;
 	}
 	PCB.prototype.setEl=function(el){
-		console.log("el",el);
 		this.el=el;
-		console.log("this",this);
-		console.log("this.el",this.el);
 	}
 	return new PCB();
 }

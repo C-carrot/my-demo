@@ -3,11 +3,16 @@
 @params name:   进程名称
 @params colorNumb: 第几个生成的进程，函数内部将其转换不同的颜色以区分不同的进度动画条
 */
-function showProcessAnimate(target,name,colorNum,callback){
+
+var content=document.getElementsByClassName("content")[0];
+var infoContent=document.getElementById("info-content");
+function showProcessAnimate(name,colorNum,callback){
 	var html,node,color;
+	var target=content;
 	if(!target){
 		return ;
 	}
+	console.log(colorNum);
 	color=colors[colorNum%colors.length];
 	html='<span class="p-title">' + name + '</span>' +
 		 '<div class="line">' +
@@ -22,8 +27,9 @@ function showProcessAnimate(target,name,colorNum,callback){
 	callback(node.getElementsByClassName('cover')[0]);
 }
 
-function showProcessInfo(target,name,sup,rtime){
+function showProcessInfo(name,sup,rtime){
 	var html,node;
+	var target=infoContent;
 	html='<td class="i-name">'+name+'</td>'+
 		'<td class="i-super">'+sup+'</td>'+
 		'<td class="i-rtime">'+rtime+'</td>';
@@ -50,7 +56,7 @@ function animate(target,w){
 	if(!target){
 		return ;
 	}
-	w=w||2;
+	w=w||10;
 	newW=oldW+w;
 	target.style.width=newW+"px";
 	if(newW >= lineW){

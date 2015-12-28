@@ -22,6 +22,10 @@
 		return item;
 	}
 
+	queue.prototype.getQueueHead=function(){
+		return this.queueList[0];
+	}
+
 	/*
 		@params *Object: args1,args2,args3 ...
 		@args1: {
@@ -34,9 +38,12 @@
 		if(arguments.length==0){
 			return ;
 		}
-		arguments.length==1 ?
-			this.queueList.push(arguments[0]):
-			this.queueList=this.queueList.contact.apply(null,arguments);
+		if(arguments.length===1){
+			this.queueList.push(arguments[0]);			
+		}else{
+			this.queueList=this.queueList.concat(arguments);
+		}
+
 		this.length+=arguments.length;
 	}
 	queue.prototype.remove=function(){
@@ -58,3 +65,17 @@
 
 	
 })(window);
+
+var promise=new Promise(function(resolve,reject){
+	var index=0;
+	console.log(index);
+	var timer=setInterval(function(){
+		console.log(index,"a");
+		if(index>=100){
+			clearInterval(timer);
+			resolve();
+		}else{
+			index+=10;
+		}
+	},100);
+})

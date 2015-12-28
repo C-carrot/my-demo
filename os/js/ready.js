@@ -9,10 +9,10 @@ function ready(){
 	sureBtn.onclick=function(){
 		// 更改全局变量
 		algorithmType=Number(selectForm.algorithm.value);
+		// 调用CPU函数启动进程调度
+		CPU(algorithmType);
 	}
 
-	var content=document.getElementsByClassName("content")[0];
-	var infoContent=document.getElementById("info-content");
 	var index=0;
 	inputBtn.onclick=function(){
 		var result;
@@ -38,13 +38,12 @@ function ready(){
 		// 将该进程放入相应的队列中
 		pushQueue(pcb,pcb.state);
 		// 在页面显示进程信息
-		showProcessInfo(infoContent,pcb.name,pcb.super,pcb.rtime);
+		showProcessInfo(pcb.name,pcb.super,pcb.rtime);
 		// 在页面显示动画条,同时将页面中的动画容器传递给pcb的el属性
 		// 这里要将pcb硬绑定到回调函数，因为会隐式丢失this
-		showProcessAnimate(content,pcb.name,index++,pcb.setEl.bind(pcb));
-		console.log(pcb.el);
-		// 调用CPU函数启动进程调度
-		CPU(algorithmType);
+		showProcessAnimate(pcb.name,index++,pcb.setEl.bind(pcb));
+		
+		
 	}	
 
 	inputForm.onclick=inputForm.onfocus=function(){
