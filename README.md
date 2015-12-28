@@ -14,3 +14,7 @@ some small demo myself
 模拟微信的飞机大战
 
 [演示地址](http://rbin-life.github.io/my-demo/plane/playing.html)
+
+### 百度地图简易版
+
+[演示地址](http://rbin-life.github.io/my-demo/map/myMap.html)

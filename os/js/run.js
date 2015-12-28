@@ -7,10 +7,7 @@ function ready(){
 	var inputList=inputForm.getElementsByTagName("input");
 	var reg=/p-(name|super|rtime)/;
 
-	var algorithmTxt=[
-		"先来先服务调度算法","短进程优先调度算法",
-		"优先权调度算法","高响应比优先调度算法",
-		"时间片轮转法","多级反馈队列调度算法"];
+	
 
 	sureBtn.onclick=function(){
 		console.log(algorithmTxt[Number(selectForm.algorithm.value)-1]);
@@ -18,12 +15,18 @@ function ready(){
 
 	inputBtn.onclick=function(){
 		var result;
+		var val=[];
+		var pcb;
 		for(var i=0,len=inputList.length;i<len;i++){
 			result=reg.exec(inputList[i].id);
-			console.log(result[1]);
-			check(inputList[i],result[1]||"hide");
+			if(!check(inputList[i],result[1]||"hide")){
+				return ;
+			}else{
+				val.push(inputList[i].value);
+			}
 		}
-
+		pcb=createPCB.apply(null,val);
+		main(pcb,pcb.state);
 	}
 
 	
@@ -55,7 +58,7 @@ function ready(){
 	//简单的验证函数
 	function check(target,type){
 		if(arguments.length!=2){
-			return ;
+			return false;
 		}
 		var numReg=/^\d+$/g;
 		var textReg=/^\w+$/g;
@@ -66,20 +69,23 @@ function ready(){
 				break;
 			case "name":
 				if(textReg.test(target.value)){
-					toggleTips(tip,false);
+					toggleTips(tip,false);					
 				}else{
 					toggleTips(tip,true);
+					return false;
 				}
-			break;
+				break;
 			case "super":
 			case "rtime":
 				if(numReg.test(target.value)){
 					toggleTips(tip,false);
 				}else{
 					toggleTips(tip,true);
+					return false;
 				}
-			break;
+				break;
 		}
+		return true;
 	}
 
 	// 切换验证tip提示
