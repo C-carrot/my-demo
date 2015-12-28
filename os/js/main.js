@@ -3,8 +3,7 @@ var algorithmType=0;
 
 var colors=["red","green","orange","pink","yellow"];
 
-var readyQueue=window.readyQueue=window.queue("ready"),
-	runQueue=window.runQueue=window.queue("run");
+var readyQueue=window.readyQueue=window.queue("ready");
 function pushQueue(pcb,state){
 	if(!pcb){
 		return ;
@@ -16,18 +15,32 @@ function pushQueue(pcb,state){
 }
 
 function CPU(algorithmType){
-	var runQ=window.runQueue;
+	var readyQ=window.readyQueue;
 	var algorithm=new Alogrithm();
 	var runner=new Runner();
 	switch(algorithmType){
 		case 1:
+			readyQ.sort(function(a,b){
+				return a.rtime-b.rtime;
+			});
+			runner.start(1);
+			break;
 		case 2:
+			readyQ.sort(function(a,b){
+				return a.super-b.super;
+			});
+			runner.start(2);
+			break;
 		case 3:
+			readyQ.sort(function(a,b){
+				return a.rtime-b.rtime;
+			});
+			runner.start(3);
+			break;
 		case 4:
 		case 5:
 		case 0:
 		default:
-			algorithm.method0();
 			runner.start();
 			break;
 	}
@@ -46,7 +59,6 @@ function Alogrithm(){
 // 先来先服务调度算法
 Alogrithm.prototype.method0=function(){
 	var	readyQ=window.readyQueue,
-		runQ=window.runQueue,
 		pcb;
 
 	this.currentType=this.type[0];
@@ -56,6 +68,7 @@ Alogrithm.prototype.method0=function(){
 		runQ.enqueue(pcb);
 	}
 }
+
 
 // 生成一个进程控制块实例
 // @name  进程名称

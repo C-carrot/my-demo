@@ -55,6 +55,10 @@
 		return this.length;
 	}
 
+	queue.prototype.sort=function(callback){
+		this.queueList.sort(callback);
+	}
+
 	function initQueue(name){
 		var obj=new queue(name);
 		return obj;
@@ -66,16 +70,3 @@
 	
 })(window);
 
-var promise=new Promise(function(resolve,reject){
-	var index=0;
-	console.log(index);
-	var timer=setInterval(function(){
-		console.log(index,"a");
-		if(index>=100){
-			clearInterval(timer);
-			resolve();
-		}else{
-			index+=10;
-		}
-	},100);
-})

@@ -43,7 +43,6 @@ function ready(){
 		// 这里要将pcb硬绑定到回调函数，因为会隐式丢失this
 		showProcessAnimate(pcb.name,index++,pcb.setEl.bind(pcb));
 		
-		
 	}	
 
 	inputForm.onclick=inputForm.onfocus=function(){

@@ -12,7 +12,6 @@ function showProcessAnimate(name,colorNum,callback){
 	if(!target){
 		return ;
 	}
-	console.log(colorNum);
 	color=colors[colorNum%colors.length];
 	html='<span class="p-title">' + name + '</span>' +
 		 '<div class="line">' +
@@ -22,8 +21,6 @@ function showProcessAnimate(name,colorNum,callback){
 	node.classList.add("row");
 	node.innerHTML=html;
 	target.appendChild(node);
-	// 
-	console.log(node.getElementsByClassName('cover')[0]);
 	callback(node.getElementsByClassName('cover')[0]);
 }
 
@@ -60,6 +57,7 @@ function animate(target,w){
 	newW=oldW+w;
 	target.style.width=newW+"px";
 	if(newW >= lineW){
+		target.style.width=lineW+"px";
 		return "finished";
 	}
 }
