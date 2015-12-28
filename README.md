@@ -5,3 +5,12 @@ some small demo myself
 模拟多种进程调度算法
 
 [演示地址](http://rbin-life.github.io/my-demo/os/)
+
+### drag拖拽
+
+[演示地址](http://rbin-life.github.io/my-demo/drag/login.html)
+
+### plane 飞机大战
+模拟微信的飞机大战
+
+[演示地址](http://rbin-life.github.io/my-demo/plane/playing.html)
