@@ -3,11 +3,18 @@ function Runner(limit){
 	this.queue=window.readyQueue;
 	this.limit=limit || 40;
 	this.currentPcb=null;
+	this.timeout=null;
+}
+
+Runner.prototype.setTimeout=function(time){
+	this.timeout=time;
 }
 
 Runner.prototype.start=function(flag){
-	var pcb;
+	var p;
 	var limit=this.limit;
+	var callbacksList=[];
+	var asncyQueue;
 	
 	flag=Number(flag)||0;
 	/** something interesting
@@ -35,57 +42,159 @@ Runner.prototype.start=function(flag){
 
 	// }
 
-	// the solution of Promise
+	// the solution of Promise , define a async dequeue in asyncQueue.js which based on Promise
 
-	//flag==1 短进程优先，根据rtime来对就绪队列进行排序
-	// flag=3 高响应比优先
-	if(flag===1||flag==3){
+	
+	
+	if(flag<=2){
+		if(flag===1){
+			//flag===1 短进程优先，根据rtime来对就绪队列进行排序
+			this.queue.sort(function(a,b){
+				return a.rtime-b.rtime;
+			});
+		}else if(flag===2){
+			// flag===2 优先级优先，根据super来排序
+			this.queue.sort(function(a,b){
+				return a.super-b.super;
+			});
+		}
+		// flag===0 则是先来先服务，在之前队列已经按照进程入队的顺序排好序了，因此不用再排
+		while(this.queue.getLength()){
+			p=this.queue.dequeue();
+			callbacksList.push({
+				callback:function(resolve,reject,pcb){
+					var timer=null;
+					timer=setInterval(function(){
+						if("finished"===pcb.callback(pcb.el)){
+							clearInterval(timer);
+							timer=null;
+							resolve();
+						}
+					},limit);
+				},
+				args:p
+			});
+		}
+		asyncQueue=new AsncyQueue(callbacksList);
+		asyncQueue.start();
+	}
+	//高响应比优先调度算法 
+	if(flag===3){
+		// 先按照运行时间对就绪队列中的进程进行排序
 		this.queue.sort(function(a,b){
 			return a.rtime-b.rtime;
 		});
-	}else if(flag==2){ 
-		// flag==2 优先级优先，根据super来排序
-		this.queue.sort(function(a,b){
-			return a.super-b.super;
-		});
+		while(this.queue.getLength()){
+			p=this.queue.dequeue();
+			callbacksList.push({
+				callback:function(resolve,reject,pcb,queue){
+					var timer=null;
+					timer=setInterval(function(){
+						if("finished"===pcb.callback(pcb.el)){
+							queue.queueList.forEach(function(p){
+								p.ntime+=pcb.rtime;
+							});
+							queue.sort(function(a,b){
+								return (a.rtime+a.ntime)/a.rtime - (b.rtime+b.ntime)/b.rtime;
+							});
+							clearInterval(timer);
+							timer=null;
+							resolve();
+						}
+					},limit);
+				},
+				args:[p,this.queue]
+			})
+		}
+		asyncQueue=new AsncyQueue(callbacksList);
+		asyncQueue.start();
 	}
 	
-	pcb=this.queue.dequeue();
-	var step=Step(asncy.bind(this,pcb));
-	function Step(callback){
-		return new Promise(function(resolve,reject){
-			callback(resolve);
-		})
-	}
-	function asncy(pcb,resolve){
-		this.timer=setInterval(function(){
-			if("finished"===pcb.callback(pcb.el)){
-				if(flag===3){
-					this.queue.queueList.forEach(function(p){
-						p.ntime+=pcb.rtime;
-					});
-					this.queue.sort(function(a,b){
-						return (a.rtime+a.ntime)/a.rtime - (b.rtime+b.ntime)/b.rtime;
-					});
-				}
-				this.remove();
-				if (this.queue.length) {
-					pcb=this.queue.dequeue();
-					step.then(Step.bind(this,asncy.bind(this,pcb)));
-				};
-				resolve();
+	if(flag===4){
+		var num=10;
+		var self=this;
+		limit=this.timeout/num;
+		function turn(){
+			var pcbNum=self.queue.getLength();
+			callbacksList=[];
+			asyncQueue=null;
+			while(self.queue.getLength()){
+				p=self.queue.dequeue();
+				callbacksList.push({
+					callback:function(resolve,reject,pcb,queue,pnum){
+						var timer=null;
+						var index=0;
+						timer=setInterval(function(){
+							index++;
+							if("finished"===pcb.callback(pcb.el)){
+								clearInterval(timer);
+								timer=null;
+								pnum++;
+								resolve(pnum);
+							}else if(index>=num){
+								queue.enqueue(pcb);
+								clearInterval(timer)
+								timer=null;
+								pnum++;
+								resolve(pnum);
+							}
+						},limit);
+					},
+					args:[p,self.queue]					
+				});
 			}
-		}.bind(this),this.limit);
+			callbacksList.push({
+				callback:function(resolve,reject,num){
+					if(!!pcbNum&&num===pcbNum){
+						turn();
+					}
+				}
+			})
+			asyncQueue=new AsncyQueue(callbacksList);
+			asyncQueue.start(0);
+		};
+		turn();
 	}
+	// if(flag===4){
+	// 	limit=this.timeout;
+	// }
 	
-}
+	// pcb=this.queue.dequeue();
+	// var step=Step(asncy.bind(this,pcb));
+	// // Step是一个构造函数，返回一个新的promise对象
+	// function Step(callback){
+	// 	return new Promise(function(resolve,reject){
+	// 		callback(resolve,reject);
+	// 	})
+	// }
 
-Runner.prototype.stop=function(){
-	clearInterval(this.timer);
-}
+	// function asncy(pcb,resolve){
+	// 	this.timer=setTimeout(function timeoutFun(){
+	// 		if("finished"===pcb.callback(pcb.el)){
+	// 			// 高响应比优先，每次进程出就绪队列的时候进行排序，保证队头是高响应比最高的进程
+	// 			if(flag===3){
+	// 				this.queue.queueList.forEach(function(p){
+	// 					p.ntime+=pcb.rtime;
+	// 				});
+	// 				this.queue.sort(function(a,b){
+	// 					return (a.rtime+a.ntime)/a.rtime - (b.rtime+b.ntime)/b.rtime;
+	// 				});
+	// 			}
+	// 			this.remove();
+	// 			if (this.queue.length) {
+	// 				pcb=this.queue.dequeue();
+	// 				step.then(Step.bind(this,asncy.bind(this,pcb)));
+	// 			};
+	// 			resolve();
+	// 		}
+	// 		if(flag===3){
 
-Runner.prototype.remove=function(){
-	this.stop();
-	this.timer=null;
+	// 		}
+	// 		timeoutFun();
+	// 	}.bind(this),limit);
+	// }
+
+
+	
 }
 

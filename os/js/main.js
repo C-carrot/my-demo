@@ -18,32 +18,11 @@ function CPU(algorithmType){
 	var readyQ=window.readyQueue;
 	var algorithm=new Alogrithm();
 	var runner=new Runner();
-	switch(algorithmType){
-		case 1:
-			readyQ.sort(function(a,b){
-				return a.rtime-b.rtime;
-			});
-			runner.start(1);
-			break;
-		case 2:
-			readyQ.sort(function(a,b){
-				return a.super-b.super;
-			});
-			runner.start(2);
-			break;
-		case 3:
-			readyQ.sort(function(a,b){
-				return a.rtime-b.rtime;
-			});
-			runner.start(3);
-			break;
-		case 4:
-		case 5:
-		case 0:
-		default:
-			runner.start();
-			break;
+	if(algorithmType===4){
+		// 时间片轮转算法设置时间片
+		runner.setTimeout(400);
 	}
+	runner.start(algorithmType);
 }
 
 
