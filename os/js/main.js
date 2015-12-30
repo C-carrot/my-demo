@@ -3,6 +3,12 @@ var algorithmType=0;
 
 var colors=["red","green","orange","pink","yellow"];
 
+var algorithmTypeList=[
+		"先来先服务调度算法","短进程优先调度算法",
+		"优先权调度算法","高响应比优先调度算法",
+		"时间片轮转法"
+	]
+
 var readyQueue=window.readyQueue=window.queue("ready");
 function pushQueue(pcb,state){
 	if(!pcb){
@@ -16,36 +22,12 @@ function pushQueue(pcb,state){
 
 function CPU(algorithmType){
 	var readyQ=window.readyQueue;
-	var algorithm=new Alogrithm();
 	var runner=new Runner();
 	if(algorithmType===4){
 		// 时间片轮转算法设置时间片
 		runner.setTimeout(400);
 	}
 	runner.start(algorithmType);
-}
-
-
-function Alogrithm(){
-	this.type=[
-		"先来先服务调度算法","短进程优先调度算法",
-		"优先权调度算法","高响应比优先调度算法",
-		"时间片轮转法","多级反馈队列调度算法"
-	];
-	this.currentType="";
-}
-
-// 先来先服务调度算法
-Alogrithm.prototype.method0=function(){
-	var	readyQ=window.readyQueue,
-		pcb;
-
-	this.currentType=this.type[0];
-	// 将就绪队列里面的进程放入运行队列
-	while(readyQ.length){
-		pcb=readyQ.dequeue();
-		runQ.enqueue(pcb);
-	}
 }
 
 

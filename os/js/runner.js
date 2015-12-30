@@ -1,14 +1,13 @@
 function Runner(limit){
-	this.timer=null;
 	this.queue=window.readyQueue;
 	this.limit=limit || 40;
-	this.currentPcb=null;
 	this.timeout=null;
 }
 
-Runner.prototype.setTimeout=function(time){
+Runner.prototype.setTime=function(time){
 	this.timeout=time;
 }
+
 
 Runner.prototype.start=function(flag){
 	var p;
@@ -154,47 +153,6 @@ Runner.prototype.start=function(flag){
 			asyncQueue.start(0);
 		};
 		turn();
-	}
-	// if(flag===4){
-	// 	limit=this.timeout;
-	// }
-	
-	// pcb=this.queue.dequeue();
-	// var step=Step(asncy.bind(this,pcb));
-	// // Step是一个构造函数，返回一个新的promise对象
-	// function Step(callback){
-	// 	return new Promise(function(resolve,reject){
-	// 		callback(resolve,reject);
-	// 	})
-	// }
-
-	// function asncy(pcb,resolve){
-	// 	this.timer=setTimeout(function timeoutFun(){
-	// 		if("finished"===pcb.callback(pcb.el)){
-	// 			// 高响应比优先，每次进程出就绪队列的时候进行排序，保证队头是高响应比最高的进程
-	// 			if(flag===3){
-	// 				this.queue.queueList.forEach(function(p){
-	// 					p.ntime+=pcb.rtime;
-	// 				});
-	// 				this.queue.sort(function(a,b){
-	// 					return (a.rtime+a.ntime)/a.rtime - (b.rtime+b.ntime)/b.rtime;
-	// 				});
-	// 			}
-	// 			this.remove();
-	// 			if (this.queue.length) {
-	// 				pcb=this.queue.dequeue();
-	// 				step.then(Step.bind(this,asncy.bind(this,pcb)));
-	// 			};
-	// 			resolve();
-	// 		}
-	// 		if(flag===3){
-
-	// 		}
-	// 		timeoutFun();
-	// 	}.bind(this),limit);
-	// }
-
-
-	
+	} 
 }
 

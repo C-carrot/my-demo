@@ -10,6 +10,7 @@ function ready(){
 		// 更改全局变量
 		algorithmType=Number(selectForm.algorithm.value);
 		// 调用CPU函数启动进程调度
+		changeTitle(algorithmTypeList[algorithmType]);
 		CPU(algorithmType);
 	}
 

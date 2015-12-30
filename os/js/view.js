@@ -62,3 +62,7 @@ function animate(target,w){
 	}
 }
 
+function changeTitle(title){
+	var target=document.getElementById("os_title");
+	target.innerHTML=title;
+}
