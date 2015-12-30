@@ -5,12 +5,23 @@ function ready(){
 	var selectForm=document.getElementById("select-form"),
 		inputForm=document.getElementById("input-form");
 	var inputList=inputForm.getElementsByTagName("input");	
+
+	readyQueue=window.queue("ready");
 	
 	sureBtn.onclick=function(){
 		// 更改全局变量
 		algorithmType=Number(selectForm.algorithm.value);
 		// 调用CPU函数启动进程调度
 		changeTitle(algorithmTypeList[algorithmType]);
+
+		readyQueue.empty();
+		for(var i=0,len=dataList.length;i<len;i++){
+			resetProcess(dataList[i].el);
+			pushQueue(dataList[i],dataList[i].state);
+		}
+
+
+
 		CPU(algorithmType);
 	}
 
@@ -34,10 +45,10 @@ function ready(){
 		}
 		// 生成一个pcb进程控制块实例
 		pcb=createPCB.apply(null,val);
+		// 进程pcb保存到一个全局数组中
+		dataList.push(pcb);
 		// 给进程设置动画函数
 		pcb.setCallback(animate);
-		// 将该进程放入相应的队列中
-		pushQueue(pcb,pcb.state);
 		// 在页面显示进程信息
 		showProcessInfo(pcb.name,pcb.super,pcb.rtime);
 		// 在页面显示动画条,同时将页面中的动画容器传递给pcb的el属性

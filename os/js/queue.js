@@ -59,14 +59,16 @@
 		this.queueList.sort(callback);
 	}
 
+	queue.prototype.empty=function(){
+		this.queueList=[];
+	}
+
 	function initQueue(name){
 		var obj=new queue(name);
 		return obj;
 	}
 
 	w.queue=initQueue;
-
-
 	
 })(window);
 
