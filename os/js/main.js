@@ -25,7 +25,7 @@ function CPU(algorithmType){
 	var runner=new Runner();
 	if(algorithmType===4){
 		// 时间片轮转算法设置时间片
-		runner.setTimeout(400);
+		runner.setTime(400);
 	}
 	runner.start(algorithmType);
 }
