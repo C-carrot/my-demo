@@ -1,0 +1,30 @@
+<% include header.html %>
+		<div class="col-md-8">
+			<table class="table table-bordered">
+		        <thead>
+		          <tr>
+		            <th>书号</th>
+		            <th>书名</th>
+		            <th>出版社</th>
+		            <th>总量</th>
+		            <th>剩余</th>
+		            <th>位置</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		          <% for(var i=0,len=list.length;i<len;i++){ %>
+		            <tr>		              
+		              <th role="row"><%= list[i].book_id.book_id %></th>
+		              <td><%= list[i].book_id.book_name %></td>
+		              <td><%= list[i].book_id.book_publish %></td>
+		              <td><%= list[i].book_num%></td>
+		              <td><%= list[i].book_remain%></td>
+		              <td><%= list[i].position%></td>
+		            </tr>
+		          <% } %>
+		        </tbody>
+		      </table>
+		</div>
+	</div>
+</div>
+<% include ../footer.html %>

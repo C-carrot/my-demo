@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/index.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<h1>图书借阅管理系统</h1>
+				<form>
+					<div class="toggle-bar">
+
+					  <div class="form-group">
+					    <label for="u-username">姓名</label>
+					    <input type="text" class="form-control" id="u-username" placeholder="姓名" required>
+					  </div>
+					  <div class="form-group">
+					    <label for="u-password">密码</label>
+					    <input type="password" class="form-control" id="u-password" placeholder="密码" required>
+					  </div>
+					  <div class="form-group">
+					    <label for="company">单位</label>
+					    <input type="text" class="form-control" id="company" placeholder="单位" required>
+					  </div>
+						
+					</div>
+					<div class="toggle-bar">
+						<div class="form-group">
+						    <label for="m-username">管理员名称</label>
+						    <input type="text" class="form-control" id="m-username" placeholder="管理员名称" required>
+						  </div>
+						  <div class="form-group">
+						    <label for="m-password">密码</label>
+						    <input type="password" class="form-control" id="m-password" placeholder="密码" required>
+						  </div>
+						  
+					</div>
+
+					<div class="toggle-bar">
+				        <div class="form-group">
+				          <label for="publish_id">出版社名</label>
+				          <input type="text" class="form-control" id="publish_id" placeholder="出版社名" required>
+				        </div>
+				        <div class="form-group">
+				          <label for="p-password">密码</label>
+				          <input type="password" class="form-control" id="p-password" placeholder="密码" required>
+				        </div>
+				        <div class="form-group">
+				          <label for="tel_code">电报编码</label>
+				          <input type="number" class="form-control" id="tel_code" placeholder="电报编码" required>
+				        </div>
+				        <div class="form-group">
+				          <label for="tel">电话</label>
+				          <input type="number" class="form-control" id="tel" placeholder="电话" required>
+				        </div>
+				        <div class="form-group">
+				          <label for="zip_code">邮编</label>
+				          <input type="number" class="form-control" id="zip_code" placeholder="邮编" required>
+				        </div>
+				        <div class="form-group">
+				          <label for="address">地址</label>
+				          <input type="address" class="form-control" id="address" placeholder="地址" required>
+				        </div>
+					</div>
+
+				  <div class="checkbox form-inline">
+				    <div class="radio">
+					  <label>
+					    <input type="radio" name="optionsRadios" value="1" checked>
+					    读者
+					  </label>
+					</div>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="optionsRadios" value="2">
+						图书管理员
+					   </label>
+					</div>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="optionsRadios" value="3">
+						出版社
+					   </label>
+					</div>
+				  </div>
+				  <button type="button" class="btn btn-default">注册</button>
+				  <a href="index.html">已有帐号，登录</a>
+				</form>
+			</div>
+		</div>		
+	</div>
+	<script src="js/register.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<% include header.html %>
+    <div class="col-md-8" id="book_list">
+      <% if(list.length>0){%>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>出版社名</th>
+              <th>电报编号</th>
+              <th>电话</th>
+              <th>邮编</th>
+              <th>地址</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(var i=0,len=list.length;i<len;i++){ %>
+              <tr>
+                <th scope="row"><%= list[i].publish_id %></th>
+                <td><%= list[i].tel_code %></td>
+                <td><%= list[i].tel %></td>
+                <td><%= list[i].zip_code %></td>
+                <td><%= list[i].address%></td>
+                <td><a href="/manage/publish/detail/<%= list[i].publish_id %>.do">订购图书</a></td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      <% }else{ %>
+        <% include ../noInfo.html %>
+      <% } %>
+    </div>
+  </div>
+</div>
+<% include ../footer.html %>

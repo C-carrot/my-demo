@@ -1,0 +1,38 @@
+*{
+	font-family: "Microsoft YaHei";
+}
+.hide{
+	display:none;
+}
+.title{
+	height: 60px;
+    line-height: 50px;
+    font-size: 28px;
+}
+a{
+	cursor:pointer;
+}
+.txt{
+	margin-left:10px;
+	margin-right:5px;
+}
+.i-num{
+	width: 50px;
+    margin-right: 10px;
+}
+.u-txt{
+	display:none;
+}
+.no-info{
+	text-align: center;
+    height: 250px;
+    font-size: 24px;
+    line-height: 250px;
+    color: #6D6D6D;
+}
+.s span{
+	font-size: 18px;
+    font-weight: 500;
+    min-width: 101px;
+    display: inline-block;
+}
