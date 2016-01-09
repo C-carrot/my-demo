@@ -1,0 +1,59 @@
+module.exports=function(grunt){
+
+	grunt.initConfig({
+		watch:{
+			gruntfile:{
+				files:'Gruntfile.js',
+				options:{
+					reload:true
+				}
+			},
+			sass:{
+				files:['public/sources/sass/**'],
+				tasks:['sass']
+			}
+		},
+		sass:{
+			dist:{
+				files:[{
+					expand:true,
+					cwd:'public/sources/sass/',
+					src:['*.scss'],
+					dest:'public/sources/css/',
+					ext:'.css'
+				}]
+			}
+		},
+		nodemon:{
+			options:{
+				env:{
+					PORT:4000
+				}
+			},
+			dev:{		
+				script:'index.js',	
+				options:{
+					watch:['index.js','book/','config/'],
+					delay:1000,
+					cwd:__dirname
+				}
+			}
+		},
+		concurrent:{
+			tasks:['nodemon','watch','sass'],
+			options:{
+				logConcurrentOutput:true
+			}
+		}
+	})
+
+
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-nodemon');
+	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-concurrent');
+	grunt.option('force',true);
+
+	grunt.registerTask('default',['concurrent']);
+
+}

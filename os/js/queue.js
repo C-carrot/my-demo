@@ -71,4 +71,3 @@
 	w.queue=initQueue;
 	
 })(window);
-

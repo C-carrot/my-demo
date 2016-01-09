@@ -1,0 +1,46 @@
+<% include header.html %>
+		<div class="col-md-8" id="book_list">
+		<% if(list.length>0){%>
+			<table class="table table-bordered">
+		        <thead>
+		          <tr>
+		            <th>书号</th>
+		            <th>书名</th>
+		            <th>订购数量</th>
+		            <th>操作</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		          <% for(var i=0,len=list.length;i<len;i++){ %>
+		            <tr>		              
+		              <th role="row" class="book_id" data-id="<%= list[i].book_publish._id%>"><%=list[i].bid%></th>
+		              <td><%= list[i].book_publish.book_name%></td>
+		              <td class="num"><%= list[i].num%></td>
+		              <td><a data-from="<%= list[i].from %>" data-msg="<%= list[i]._id%>">发货</a></td>
+		            </tr>
+		          <% } %>
+		        </tbody>
+		      </table>
+			<% }else{ %>
+				<% include ../noInfo.html %>
+			<% } %>
+		</div>
+	</div>
+</div>
+<script>
+	$(function(){
+		$("#book_list").on("click","a",function(){
+			var $this=$(this);
+			$.post("/publish/sendBook.do",{
+				to:$this.attr("data-from"),
+				book:$this.parent().parent().find(".book_id").attr("data-id"),
+				num:$this.parent().parent().find(".num").text(),
+				msg_id:$this.attr("data-msg")
+			},function(data){
+				console.log(data);
+				window.location.reload();
+			},"json");
+		})
+	})
+</script>
+<% include ../footer.html %>

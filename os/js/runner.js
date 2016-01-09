@@ -108,7 +108,7 @@ Runner.prototype.start=function(flag){
 		asyncQueue=new AsncyQueue(callbacksList);
 		asyncQueue.start();
 	}
-	
+	// 时间片轮转算法
 	if(flag===4){
 		var num=10;
 		var self=this;
@@ -155,4 +155,3 @@ Runner.prototype.start=function(flag){
 		turn();
 	} 
 }
-

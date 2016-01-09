@@ -1,0 +1,54 @@
+<% include header.html %>
+
+    <div class="col-md-8" id="book_list">
+      
+      
+      <% if(list.length>0){%>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>书号</th>
+            <th>书名</th>
+            <th>数量</th>
+            <th>出版社</th>
+            <th>位置</th>
+            <th>剩余数量</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="book_list">
+          <% for(var i=0,len=list.length;i<len;i++){ %>
+            <tr>
+              <th scope="row" class="book_id" data-id="<%= list[i]._id %>"><%= list[i].book_id.book_id%></th>
+              <td><%= list[i].book_id.book_name%></td>
+              <td><%= list[i].book_num%></td>
+              <td><%= list[i].book_id.book_publish%></td>
+              <td><%= list[i].position%></td>
+              <td><%= list[i].book_remain%></td>
+              <td><a>借阅</a><span class="u-txt">已申请借阅</span></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+      <% }else{ %>
+        <% include ../noInfo.html %>
+      <% } %>
+    </div>
+  </div>
+</div>
+<script>
+  $(function(){
+    $("#book_list").on("click","a",function(){
+      var $this=$(this);
+      $this.siblings("span").show();
+      $this.hide();
+      $.post("/user/borrowBook.do",{
+        _id:$this.parent().parent().find(".book_id").attr("data-id")
+      },function(data){
+        console.log(data)
+      },"json");
+    })
+  })
+</script>
+<% include ../footer.html %>
