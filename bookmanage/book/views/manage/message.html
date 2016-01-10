@@ -42,7 +42,7 @@
 					        	<th role="row" class="user_id" data-from="<%= list[i].from %>"><%= list[i].bid %></th>	              
 					            <td class="book_id" data-id="<%= list[i].book_admin._id %>"><%=list[i].book_admin.book_id.book_id %></td>
 					            <td><%= list[i].book_admin.book_id.book_name %></td>
-					            <td><a data-from="<%= list[i].from %>" data-msg="<%= list[i]._id%>">出借</a></td>
+					            <td><a data-from="<%= list[i].from %>" data-msg="<%= list[i]._id%>">出借</a><button class="i-btn btn btn-primary hided">通知借书人</button></td>
 					        </tr>
 				        <% } %>		        	
 			        </tbody>
@@ -83,9 +83,36 @@
 				to:$this.parent().parent().find(".user_id").attr("data-from"),
 				msg_id:$this.attr("data-msg")
 			},function(data){
-				console.log(data);
-				window.location.reload();
+				if(data.status==="error"&&data.message==0){
+					alert("图书存量不足，请向出版社添购书籍或者告知借书人解释失败");
+					$this.siblings(".i-btn").show();
+					$this.siblings(".i-btn").attr({
+						"data-to":data.info.to,
+						"data-book_admin":data.info.book_admin,
+						"data-action":data.info.action,
+						"data-from":data.info.from,
+						"data-num":data.info.num
+					});
+				}else{
+					window.location.reload();
+				}
 			},"json");
+		});
+
+		$("#book_list").on("click",".i-btn",function(){
+			var $this=$(this);
+			$.post("/manage/telUser.do",{
+				to:$this.attr("data-to"),
+				book_admin:$this.attr("data-book_admin"),
+				action:$this.attr("data-action"),
+				from:$this.attr("data-from"),
+				num:$this.attr("data-num"),
+				msg_id:$this.siblings("a").attr("data-msg")
+			}),function(data){
+				if(data.status==="ok"){
+					window.location.reload();
+				}
+			}
 		})
 		var _id,num,msg_id;
 		$('#myModal').on('shown.bs.modal',function(e){

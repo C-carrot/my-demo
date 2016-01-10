@@ -4,6 +4,9 @@
 .hide{
 	display:none;
 }
+.hided{
+	display:none;
+}
 .title{
 	height: 60px;
     line-height: 50px;
@@ -35,4 +38,7 @@ a{
     font-weight: 500;
     min-width: 101px;
     display: inline-block;
+}
+.i-btn{
+	margin-left: 25px;
 }

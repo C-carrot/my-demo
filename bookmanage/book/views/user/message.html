@@ -6,6 +6,7 @@
 					<tr>
 			            <th>书号</th>
 			            <th>书名</th>
+			            <th>消息</th>
 			            <th>操作</th>
 			        </tr>
 			        </thead>
@@ -14,6 +15,12 @@
 					        <tr>		              
 					            <th role="row" class="book_id" data-id="<%= list[i].book_admin._id%>"><%=list[i].book_admin.book_id.book_id %></th>
 					            <td><%= list[i].book_admin.book_id.book_name %></td>
+					            <td>
+					            	<% if(list[i].action==2){%>
+					            		借书成功
+					            	<%}else if(list[i].action==-1){%>
+										借书失败(库存不足)
+					            	<%}%></td>
 					            <td><a data-msg="<%= list[i]._id%>">确定</a></td>
 					        </tr>
 				        <% } %>		        	
@@ -30,12 +37,11 @@
 		$("#book_list").on("click","a",function(){
 			var $this=$(this);
 			$.post("/user/getBook.do",{
-				book_id:$this.parent().parent().find(".book_id").attr("data-id"),
-				book_name:$this.parent().parent().find(".user_id").text(),
 				msg_id:$this.attr("data-msg")
 			},function(data){
-				console.log(data);
-				window.location.reload();
+				if(data.status=="ok"){
+					window.location.reload();
+				}
 			},"json");
 		});
 	});

@@ -48,6 +48,7 @@ module.exports=function(app){
 	app.post("/manage/getBook.do",Controller.manage.isLogin,Controller.manage.getBook);
 	app.get("/manage/bookList.do",Controller.manage.isLogin,Controller.manage.bookList);
 	app.post("/manage/sendBook.do",Controller.manage.isLogin,Controller.manage.sendBook);
+    app.post("/manage/telUser.do",Controller.manage.isLogin,Controller.manage.telUser);
 	// app.post("/manage/returnBook.do",Controller.manage.isLogin,Controller.manage.returnBook);
 	// 出版社用户操作
 	// 注册（出版社名，电报编号，电话，邮编，地址）

@@ -1,5 +1,6 @@
 var mongoose = require('mongoose')
 var Model = require("../models/index");
+var Tool=require("./tool");
 var __manage=Model.Manage;
 var __message=Model.Message;
 var __book=Model.Book;
@@ -100,28 +101,46 @@ manage.addBook=function(req,res){
 
 manage.getBook=function(req,res){
 	var _data=req.body,_book;
-	_book=new __book({
-		book_id:_data._id,
-		book_num:_data.num,
-		book_remain:_data.num,
-		position:_data.position
-	});
+	__book.findOne({book_id:_data._id},function(err,d){
+		if(!d){			
+			_book=new __book({
+				book_id:_data._id,
+				book_num:_data.num,
+				book_remain:_data.num,
+				position:_data.position
+			});
 
-	_book.save(function(err,data){
-		if(err){
-			console.log(err);
+			_book.save(function(err,data){
+				if(err){
+					console.log(err);
+				}
+				__message.remove({_id:_data.msg_id},function(err,data){
+					if(err){
+						console.log(err);
+					}
+					res.json({
+						"status":"ok"
+					});			
+				});
+			});
+		}else{
+			d.book_num=(+d.book_num)+(+_data.num);
+			d.book_remain=(+d.book_remain)+(+_data.num);
+			d.save(function(err,data){
+				if(err){
+					console.log(err);
+				}
+				__message.remove({_id:_data.msg_id},function(err,data){
+					if(err){
+						console.log(err);
+					}
+					res.json({
+						"status":"ok"
+					});			
+				});
+			})
 		}
-		__message.remove({_id:_data.msg_id},function(err,data){
-			if(err){
-				console.log(err);
-			}
-			console.log("delete succse",data);
-			res.json({
-				"status":"ok",
-				"b":"wqord"
-			});			
-		});
-	})
+	});
 
 }
 
@@ -140,24 +159,50 @@ manage.bookList=function(req,res){
 }
 
 manage.sendBook=function(req,res){
-	var _data=req.body,_record,_message,time,atime;
-	_message=new __message({
-		to:_data.to,
-		action:2,
-		book_admin:_data._id,
-		from:req.session._user,
-		num:1
-	});
-	_message.save(function(err,data){
-		if(err){
-			console.log(err);
-		}
-		__message.remove({_id:_data.msg_id},function(err,data){
+	var _data=req.body,_record,_message;
+	__book.findOne({_id:_data._id},function(err,_d){
+		if(_d.book_remain<=0){
 			res.json({
-				"status":"ok"
-			})
-		});
+				"status":"error",
+				"message":0, //图书存量不足
+				"info":{
+					"to":_data.to,
+					"book_admin":_data._id,
+					"action":-1, //借书失败
+					"from":"ADMIN",
+					"num":1
+				}
+			});
+		}else{
+			_d.book_remain--;
+			_d.save(function(err,d){	
+				var now=new Date,
+					num=+now+2592000000,
+					nnow=new Date;
+				nnow.setTime(num);		
+				_record=new __record({
+					borrow_id:_data.to,
+					book_id:_data._id,
+					borrow_date:Tool.formatDate(now),					
+					return_date:Tool.formatDate(nnow)
+				});
+				_record.save(function(err,data){
+					if(err){
+						console.log(err);
+					}
+					__message.remove({_id:_data.msg_id},function(err,data){
+						if(err){
+							console.log(err);
+						}
+						res.json({
+							"status":"ok"
+						});
+					});
+				});
+			});			
+		}
 	});
+	
 }
 
 manage.publishMessage=function(req,res){
@@ -168,6 +213,7 @@ manage.publishMessage=function(req,res){
 		if(err){
 			console.log(err);
 		}
+		console.log("boo  ",data);
 		res.render("manage/message",{
 			mode:4,
 			type:2,
@@ -204,11 +250,34 @@ manage.messageFromUser=function(req,res){
 	.exec(function(err,data){
 		res.render("manage/messageByUser",{
 			list:data
-		})
+		});
 	});
 }
 
 
-
+manage.telUser=function(req,res){
+	var _data=req.body,_message;
+	_message=new __message({
+		to:_data.to,
+		from:_data.from,
+		action:_data.action,
+		num:_data.num,
+		book_admin:_data.book_admin
+	});
+	_message.save(function(err,data){
+		if(err){
+			console.log(err);
+		}
+		__message.remove({_id:_data.msg_id},function(err,d){
+			if(err){
+				console.log(err);
+			}
+			res.json({
+				"status":"ok"
+			});
+			
+		});
+	});
+}
 
 module.exports=manage;

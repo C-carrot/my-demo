@@ -161,7 +161,6 @@ user.bookList=function(req,res){
 
 user.message=function(req,res){
 	__message.find({to:req.session._user})
-	.where("action").equals(2)
 	.populate("book_admin")
 	.exec(function(err,data){
 		if(err){
@@ -172,6 +171,7 @@ user.message=function(req,res){
 			select:"book_id book_name book_publish",
 			model:"PublishBook"
 		}],function(err,d){		
+			console.log(d)
 			res.render("user/message",{
 				mode:3,
 				list:d
@@ -181,42 +181,14 @@ user.message=function(req,res){
 }
 
 user.getBook=function(req,res){
-	var _data=req.body,_record;	
-	__book.findOne({_id:_data.book_id},function(err,_d){
-		if(_d.book_remain<=0){
-			res.json({
-				"status":"error",
-				"message":0 //图书存量不足
-			})
-		}else{
-			_d.book_remain--;
-			_d.save(function(err,d){	
-				var now=new Date,
-					num=+now+2592000000,
-					nnow=new Date;
-				nnow.setTime(num);		
-				_record=new __record({
-					borrow_id:req.session._user,
-					book_id:_data.book_id,
-					borrow_date:Tool.formatDate(now),
-					
-					return_date:Tool.formatDate(nnow)
-				});
-				_record.save(function(err,data){
-					if(err){
-						console.log(err);
-					}
-					__message.remove({_id:_data.msg_id},function(err,data){
-						if(err){
-							console.log(err);
-						}
-						res.json({
-							"status":"ok"
-						});
-					});
-				});
-			});			
+	var _data=req.body;
+	__message.remove({_id:_data.msg_id},function(err,data){
+		if(err){
+			console.log(err);
 		}
+		res.json({
+			"status":"ok"
+		})
 	})
 }
 
